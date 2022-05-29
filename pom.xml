@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>com.luwuna</groupId>
     <artifactId>RavyAPI</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -35,5 +35,19 @@
             <id>jitpack</id>
             <url>https://jitpack.io</url>
         </repository>
+              <repository>
+            <id>maven-group</id>
+            <url>https://nexus.zakariao.nl/repository/mvn/</url>
+        </repository>
     </repositories>
+          <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>https://nexus.zakariao.nl/repository/mvn-snap/</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <url>https://nexus.zakariao.nl/repository/mvn-rel/</url>
+        </repository>
+    </distributionManagement>
 </project>
