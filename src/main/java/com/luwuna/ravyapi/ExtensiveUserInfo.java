@@ -12,9 +12,14 @@ import java.util.List;
 public class ExtensiveUserInfo {
    private JSONObject obj;
     private JSONObject trust;
-    public ExtensiveUserInfo(JSONObject obj)  throws UnauthorizedRouteException{
+    public ExtensiveUserInfo(JSONObject obj){
         this.obj = obj;
+        try{
+            obj.get("error");
+            throw new UnauthorizedRouteException("You dont have access to this route!");
+        }catch (JSONException ign){}
         trust = (JSONObject) obj.get("trust");
+
     }
 
     public boolean isBanned(){
@@ -26,7 +31,7 @@ public class ExtensiveUserInfo {
             String pronouns = obj.get("pronouns").toString();
             return pronouns;
         }catch (JSONException ign){
-            throw new UnauthorizedRouteException("You dont have access to this route!");
+            throw new UnauthorizedRouteException("You don't have access to this route!");
         }
     }
     public int getTrustLevel(){

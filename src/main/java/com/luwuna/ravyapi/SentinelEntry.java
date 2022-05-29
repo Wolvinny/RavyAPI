@@ -10,7 +10,6 @@ public class SentinelEntry {
     public boolean isVerified(){
         return (boolean) obj.get("verified");
     }
-
     /**
      * I honestly have no clue on why you'd need this, but i added it anyways
      * @return the debug id

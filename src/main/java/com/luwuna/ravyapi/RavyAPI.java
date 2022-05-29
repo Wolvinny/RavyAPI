@@ -23,8 +23,15 @@ public class RavyAPI{
     Request r;
     OkHttpClient c = new OkHttpClient();
     String token;
-    public RavyAPI(@NotNull String RavyToken){
-        token = RavyToken;
+
+    /**
+     * Constructs the API and logs in with the token.
+     *
+     * @param token the token to login with
+     * @throws IllegalArgumentException if invalid token
+     */
+    public RavyAPI(@NotNull String token){
+        this.token = token;
         r = new Request.Builder()
                 .url("https://ravy.org/api/v1/tokens/@current")
                 .header("Authorization", token)
@@ -68,8 +75,7 @@ public class RavyAPI{
     }
 
     /**
-     * Gets the bans of a user. Returns a BanEntry object
-     * Use .getBans()
+     * Gets extended info about a user (bans, trust, pronouns)
      */
     public ExtensiveUserInfo getInfo(String id){
         r = new Request.Builder()
@@ -123,17 +129,56 @@ public class RavyAPI{
         }
         return null;
     }
-    public String getTrust(@NotNull String id){
-        return null;
-    }
-    public String  getWhiteListProvidercyb(@NotNull String id){
-        return null;
-    }
-    public String  getWhiteListReason(@NotNull String id){
 
+    /**
+     * Gets the whitelists of a user.
+     * @param id
+     * @return List<WhiteListEntry> if the user has whitelists
+     * @return null if the user has no whitelists
+     *
+     */
+    public List<WhitelistEntry> getWhitelists(@NotNull String id){
+        r = new Request.Builder()
+                .url("https://ravy.org/api/v1/users/" + id + "/whitelists")
+                .header("Authorization", token)
+                .get().build();
+        Response res;
+        JSONObject obj ;
+        try {
+            res = c.newCall(r).execute();
+            obj = new JSONObject(res.body().string());
+            List<WhitelistEntry> entry = new ArrayList<>();
+            JSONArray arr = (JSONArray) obj.get("whitelists");
+            if(arr.isEmpty()){
+                return null;
+            }
+            arr.forEach(a ->{
+                entry.add(new WhitelistEntry((JSONObject) a));
+            });
+            return entry;
+        }catch (IOException e){
+            res = null;
+            obj = null;
+        }
         return null;
     }
-
+    public Trust getWhitelistsTrust(@NotNull String id){
+        r = new Request.Builder()
+                .url("https://ravy.org/api/v1/users/" + id + "/whitelists")
+                .header("Authorization", token)
+                .get().build();
+        Response res;
+        JSONObject obj ;
+        try {
+            res = c.newCall(r).execute();
+            obj = new JSONObject(res.body().string());
+            return new Trust((JSONObject) obj.get("trust"));
+        }catch (IOException e){
+            res = null;
+            obj = null;
+        }
+        return null;
+    }
     /**
      * Gets the trust based on Discordrep.com
      * @param id
