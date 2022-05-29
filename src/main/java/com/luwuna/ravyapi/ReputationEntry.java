@@ -1,17 +1,18 @@
 package com.luwuna.ravyapi;
 
 import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ReputationEntry {
     private JSONObject obj;
-    public ReputationEntry(JSONObject obj) throws UnauthorizedRouteException {
+    public ReputationEntry(JSONObject obj) {
         this.obj = obj;
         System.out.println(obj);
         try{
             obj.get("error");
             throw new UnauthorizedRouteException("You dont have access to this route!");
-        }catch (NullPointerException ign){}
+        }catch (JSONException ign){}
 
     }
     public String getProvider(){

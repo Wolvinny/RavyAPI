@@ -6,8 +6,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class RavyAPI{
      * Gets the bans of a user. Returns a BanEntry object
      * Use .getBans()
      */
-    public ExtensiveUserInfo getBanInfo(String id){
+    public ExtensiveUserInfo getInfo(String id){
         r = new Request.Builder()
                 .url("https://ravy.org/api/v1/users/" + id + "/bans")
                 .header("Authorization", token)
@@ -79,6 +81,7 @@ public class RavyAPI{
         try {
             res = c.newCall(r).execute();
             obj = new JSONObject(res.body().string());
+            System.out.println(obj);
             return new ExtensiveUserInfo(obj);
         }catch (Exception e){
             e.printStackTrace();
@@ -94,9 +97,10 @@ public class RavyAPI{
     }
 
     /**
-     *
+     * Returns the user pronouns if set. Also accessible in ExtensiveUserInfo
      * @param id
-     * @return pronouns if successful, null if no access
+     * @return pronouns if successful
+     * @throws UnauthorizedRouteException if unauthorized
      */
     public String getPronouns(@NotNull String id){
         r = new Request.Builder()
@@ -108,8 +112,12 @@ public class RavyAPI{
         try {
             res = c.newCall(r).execute();
             obj = new JSONObject(res.body().string());
-            return obj.get("pronouns").toString();
-        }catch (Exception e){
+            try {
+                return obj.get("pronouns").toString();
+            }catch (JSONException e){
+                throw new UnauthorizedRouteException("You don't have access to this route!");
+            }
+        }catch (IOException e){
             res = null;
             obj = null;
         }
@@ -143,12 +151,7 @@ public class RavyAPI{
         try {
             res = c.newCall(r).execute();
             obj = new JSONObject(res.body().string());
-            try {
                 return new ReputationEntry(obj);
-            }catch (UnauthorizedRouteException e){
-                e.printStackTrace();
-                return null;
-            }
         }catch (Exception e){
             res = null;
             obj = null;

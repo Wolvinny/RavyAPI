@@ -14,7 +14,7 @@ public class BanEntry {
         return (String) obj.get("reason");
     }
     public String getReasonKey(){
-        return (String) obj.get("reasonkey");
+        return (String) obj.get("reasonKey");
     }
     public String getModerator(){
         return (String) obj.get("moderator");

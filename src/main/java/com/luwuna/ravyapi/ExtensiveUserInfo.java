@@ -1,7 +1,9 @@
 package com.luwuna.ravyapi;
 
 
+import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.List;
 public class ExtensiveUserInfo {
    private JSONObject obj;
     private JSONObject trust;
-    public ExtensiveUserInfo(JSONObject obj){
+    public ExtensiveUserInfo(JSONObject obj)  throws UnauthorizedRouteException{
         this.obj = obj;
         trust = (JSONObject) obj.get("trust");
     }
@@ -19,7 +21,14 @@ public class ExtensiveUserInfo {
        JSONArray a = ((JSONArray) obj.get("bans"));
         return !a.isEmpty();
     }
-
+    public String getPronouns(){
+        try {
+            String pronouns = obj.get("pronouns").toString();
+            return pronouns;
+        }catch (JSONException ign){
+            throw new UnauthorizedRouteException("You dont have access to this route!");
+        }
+    }
     public int getTrustLevel(){
        return Integer.valueOf(trust.get("level").toString());
     }
