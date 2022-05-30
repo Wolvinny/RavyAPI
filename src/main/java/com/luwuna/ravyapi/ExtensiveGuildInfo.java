@@ -1,6 +1,5 @@
 package com.luwuna.ravyapi;
 
-
 import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,28 +8,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExtensiveUserInfo {
-   private JSONObject obj;
-
-    public ExtensiveUserInfo(JSONObject obj){
+public class ExtensiveGuildInfo {
+    private JSONObject obj;
+    public ExtensiveGuildInfo(JSONObject obj){
         this.obj = obj;
         try{
             obj.get("error");
             throw new UnauthorizedRouteException("You dont have access to this route!");
         }catch (JSONException ign){}
+
     }
 
     public boolean isBanned(){
-       JSONArray a = ((JSONArray) obj.get("bans"));
+        JSONArray a = ((JSONArray) obj.get("bans"));
         return !a.isEmpty();
-    }
-    public String getPronouns(){
-        try {
-            String pronouns = obj.get("pronouns").toString();
-            return pronouns;
-        }catch (JSONException ign){
-            throw new UnauthorizedRouteException("You don't have access to this route!");
-        }
     }
     public Trust getTrust(){
         return new Trust((JSONObject) obj.get("trust"));
@@ -38,8 +29,8 @@ public class ExtensiveUserInfo {
 
 
     /**
-     * Checks whether the user has bans
-     * @return null if the user is not banned, List<BanEntry> if the user is banned
+     * Checks whether the guild has bans
+     * @return null if the guild is not banned, List<BanEntry> if the guild is banned
      */
     public List<BanEntry> getBanEntries(){
         if(!isBanned()) return null;

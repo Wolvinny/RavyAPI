@@ -51,6 +51,10 @@ public class RavyAPI{
             e.printStackTrace();
         }
     }
+
+    public void getGuild(@NotNull String id){
+
+    }
     /**
      * Gets the scopes that the token has access to in a List<String>. All scopes can be found at https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89
      */
@@ -79,7 +83,7 @@ public class RavyAPI{
     /**
      * Gets extended info about a user (bans, trust, pronouns)
      */
-    public ExtensiveUserInfo getInfo(String id){
+    public ExtensiveUserInfo getInfo(@NotNull String id){
         r = new Request.Builder()
                 .url("https://ravy.org/api/v1/users/" + id + "/bans")
                 .header("Authorization", token)
