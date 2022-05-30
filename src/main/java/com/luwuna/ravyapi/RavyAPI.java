@@ -1,5 +1,6 @@
 package com.luwuna.ravyapi;
 
+import com.luwuna.ravyapi.exceptions.InvalidTokenException;
 import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 public class RavyAPI{
@@ -28,7 +30,7 @@ public class RavyAPI{
      * Constructs the API and logs in with the token.
      *
      * @param token the token to login with
-     * @throws IllegalArgumentException if invalid token
+     * @throws InvalidTokenException if invalid token
      */
     public RavyAPI(@NotNull String token){
         this.token = token;
@@ -42,7 +44,7 @@ public class RavyAPI{
            switch(res.code()){
                case 401:
                case 403:
-                   throw new IllegalArgumentException("Invalid token!");
+                   throw new InvalidTokenException("The token provided is invalid!");
            }
 
         }catch (Exception e){

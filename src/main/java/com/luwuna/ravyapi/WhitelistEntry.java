@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WhitelistEntry {
-    private JSONObject obj;
+    private final JSONObject obj;
     public WhitelistEntry(JSONObject obj){
         this.obj = obj;
         try{
