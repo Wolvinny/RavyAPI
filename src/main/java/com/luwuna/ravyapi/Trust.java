@@ -1,11 +1,15 @@
 package com.luwuna.ravyapi;
 
+import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
 import org.json.JSONObject;
 
 public class Trust {
     private JSONObject obj;
     public Trust(JSONObject obj){
         this.obj = obj;
+        if(obj.has("error")) {
+            throw new UnauthorizedRouteException("You dont have access to this route!");
+        }
     }
 
     /**

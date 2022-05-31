@@ -16,12 +16,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 public class RavyAPI{
-    /**
-     * Creates the basic API object.
-     * @param RavyToken: the token to login with
-     * @throws IllegalArgumentException if the token is not a Ravy token
-     *
-     */
+
     Request r;
     OkHttpClient c = new OkHttpClient();
     String token;
@@ -69,7 +64,6 @@ public class RavyAPI{
           res = c.newCall(r).execute();
           obj = new JSONObject(res.body().string());
         }catch (Exception e){
-            res = null;
             obj = null;
         }
         JSONArray arr = (JSONArray) obj.get("access");
@@ -97,8 +91,6 @@ public class RavyAPI{
             return new ExtensiveUserInfo(obj);
         }catch (Exception e){
             e.printStackTrace();
-            res = null;
-            obj = null;
         }
         return null;
     }
@@ -130,8 +122,6 @@ public class RavyAPI{
                 throw new UnauthorizedRouteException("You don't have access to this route!");
             }
         }catch (IOException e){
-            res = null;
-            obj = null;
         }
         return null;
     }
@@ -163,8 +153,6 @@ public class RavyAPI{
             });
             return entry;
         }catch (IOException e){
-            res = null;
-            obj = null;
         }
         return null;
     }
@@ -180,14 +168,12 @@ public class RavyAPI{
             obj = new JSONObject(res.body().string());
             return new Trust((JSONObject) obj.get("trust"));
         }catch (IOException e){
-            res = null;
-            obj = null;
         }
         return null;
     }
     /**
      * Gets the trust based on Discordrep.com
-     * @param id
+     * @param id the userid
      * @return ReputationEntry
      * @throws UnauthorizedRouteException if the token has no access
      *
@@ -204,8 +190,6 @@ public class RavyAPI{
             obj = new JSONObject(res.body().string());
                 return new ReputationEntry(obj);
         }catch (Exception e){
-            res = null;
-            obj = null;
         }
         return null;
     }

@@ -9,10 +9,9 @@ public class WhitelistEntry {
     private final JSONObject obj;
     public WhitelistEntry(JSONObject obj){
         this.obj = obj;
-        try{
-            obj.get("error");
+        if(obj.has("error")) {
             throw new UnauthorizedRouteException("You dont have access to this route!");
-        }catch (JSONException ign){}
+        }
     }
 
     public boolean getProvider(){

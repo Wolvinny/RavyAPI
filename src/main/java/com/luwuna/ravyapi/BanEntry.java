@@ -15,10 +15,10 @@ public class BanEntry {
      */
     public BanEntry(JSONObject obj){
     this.obj = obj;
-        try{
-            obj.get("error");
-            throw new UnauthorizedRouteException("You dont have access to this route!");
-        }catch (JSONException ign){}
+    if(obj.has("error")) {
+        throw new UnauthorizedRouteException("You dont have access to this route!");
+    }
+
     }
     public String getReason(){
         return (String) obj.get("reason");
