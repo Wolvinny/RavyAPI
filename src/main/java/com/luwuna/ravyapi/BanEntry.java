@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 
 public class BanEntry {
-     private JSONObject obj;
+     private final JSONObject obj;
 
     /**
      *

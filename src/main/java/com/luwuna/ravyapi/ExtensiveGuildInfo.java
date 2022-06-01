@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtensiveGuildInfo {
-    private JSONObject obj;
+    private final JSONObject obj;
     public ExtensiveGuildInfo(JSONObject obj){
         this.obj = obj;
         if(obj.has("error")) {
@@ -35,9 +35,7 @@ public class ExtensiveGuildInfo {
         if(!isBanned()) return null;
         List<BanEntry> entry = new ArrayList<>();
         JSONArray arr = (JSONArray) obj.get("bans");
-        arr.forEach(a ->{
-            entry.add(new BanEntry((JSONObject) a ));
-        });
+        arr.forEach(a -> entry.add(new BanEntry((JSONObject) a )));
         return entry;
     }
 

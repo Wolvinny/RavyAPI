@@ -4,7 +4,7 @@ import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
 import org.json.JSONObject;
 
 public class Trust {
-    private JSONObject obj;
+    private final JSONObject obj;
     public Trust(JSONObject obj){
         this.obj = obj;
         if(obj.has("error")) {
@@ -17,7 +17,7 @@ public class Trust {
      * @return int level
      */
     public int getLevel(){
-        return Integer.valueOf(obj.get("level").toString());
+        return Integer.parseInt(obj.get("level").toString());
     }
     /**
      * Returns the meaning of the number

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtensiveUserInfo {
-   private JSONObject obj;
+   private final JSONObject obj;
 
     public ExtensiveUserInfo(JSONObject obj){
         this.obj = obj;
@@ -22,14 +22,6 @@ public class ExtensiveUserInfo {
     public boolean isBanned(){
        JSONArray a = ((JSONArray) obj.get("bans"));
         return !a.isEmpty();
-    }
-    public String getPronouns(){
-        try {
-            String pronouns = obj.get("pronouns").toString();
-            return pronouns;
-        }catch (JSONException ign){
-            throw new UnauthorizedRouteException("You don't have access to this route!");
-        }
     }
     public Trust getTrust(){
         return new Trust((JSONObject) obj.get("trust"));
@@ -44,9 +36,7 @@ public class ExtensiveUserInfo {
         if(!isBanned()) return null;
         List<BanEntry> entry = new ArrayList<>();
         JSONArray arr = (JSONArray) obj.get("bans");
-        arr.forEach(a ->{
-            entry.add(new BanEntry((JSONObject) a ));
-        });
+        arr.forEach(a -> entry.add(new BanEntry((JSONObject) a )));
         return entry;
     }
 

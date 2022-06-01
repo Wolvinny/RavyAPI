@@ -7,18 +7,16 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 
 public class RavyAPI{
 
     Request r;
-    OkHttpClient c = new OkHttpClient();
+    final OkHttpClient c = new OkHttpClient();
     String token;
 
     /**
@@ -51,9 +49,9 @@ public class RavyAPI{
 
     }
     /**
-     * Gets the scopes that the token has access to in a List<String>. All scopes can be found at https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89
+     * Gets the scopes that the token has access to in a List<String>. All scopes can be found at <a href="https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89">here</a>
      */
-    public List<String> getScopes(){
+    public Token getToken(){
         r = new Request.Builder()
                 .url("https://ravy.org/api/v1/tokens/@current")
                 .header("Authorization", token)
@@ -62,33 +60,45 @@ public class RavyAPI{
         JSONObject obj ;
         try {
           res = c.newCall(r).execute();
-          obj = new JSONObject(res.body().string());
-        }catch (Exception e){
-            obj = null;
+            assert res.body() != null;
+            obj = new JSONObject(res.body().string());
+            switch(res.code()){
+                case 401:
+                case 403:
+                    throw new UnauthorizedRouteException("You don't have access to this route!");
+                default:
+                    return new Token(obj);
+            }
+        }catch (Exception ignored){
         }
-        JSONArray arr = (JSONArray) obj.get("access");
-        List<String> scopes = new ArrayList<>();
-        arr.forEach(a ->{
-            scopes.add(a.toString());
-        });
-        return scopes;
+        return null;
     }
 
     /**
-     * Gets extended info about a user (bans, trust, pronouns)
+     * Gets extended info about a user (bans, trust)
+     * Pronouns are not included in this and can be fetched via .getPronouns()
+     * @param id: the id of the user
+     * @throws UnauthorizedRouteException if unauthorized
      */
     public ExtensiveUserInfo getInfo(@NotNull String id){
         r = new Request.Builder()
-                .url("https://ravy.org/api/v1/users/" + id + "/bans")
+                .url("https://ravy.org/api/v1/users/" + id)
                 .header("Authorization", token)
                 .get().build();
         Response res;
         JSONObject obj ;
         try {
             res = c.newCall(r).execute();
+            assert res.body() != null;
             obj = new JSONObject(res.body().string());
-            System.out.println(obj);
-            return new ExtensiveUserInfo(obj);
+            switch(res.code()){
+                case 401:
+                case 403:
+                    throw new UnauthorizedRouteException("You don't have access to this route!");
+                default:
+                    return new ExtensiveUserInfo(obj);
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -101,8 +111,8 @@ public class RavyAPI{
     }
 
     /**
-     * Returns the user pronouns if set. Also accessible in ExtensiveUserInfo
-     * @param id
+     * Returns the user pronouns if set.
+     * @param id: the id of the User
      * @return pronouns if successful
      * @throws UnauthorizedRouteException if unauthorized
      */
@@ -115,22 +125,28 @@ public class RavyAPI{
         JSONObject obj ;
         try {
             res = c.newCall(r).execute();
+            assert res.body() != null;
             obj = new JSONObject(res.body().string());
-            try {
-                return obj.get("pronouns").toString();
-            }catch (JSONException e){
-                throw new UnauthorizedRouteException("You don't have access to this route!");
+            switch(res.code()){
+                case 401:
+                case 403:
+                    throw new UnauthorizedRouteException("You don't have access to this route!");
+                default:
+                    return obj.get("pronouns").toString();
             }
-        }catch (IOException e){
+
+
+
+        }catch (IOException ignored){
         }
         return null;
     }
 
     /**
      * Gets the whitelists of a user.
-     * @param id
-     * @return List<WhiteListEntry> if the user has whitelists
-     * @return null if the user has no whitelists
+     * @param id: the id of the user
+     * @return List<WhiteListEntry> if the user has whitelists, null if there are none
+     *
      *
      */
     public List<WhitelistEntry> getWhitelists(@NotNull String id){
@@ -142,17 +158,21 @@ public class RavyAPI{
         JSONObject obj ;
         try {
             res = c.newCall(r).execute();
+            assert res.body() != null;
             obj = new JSONObject(res.body().string());
+            switch(res.code()){
+                case 401:
+                case 403:
+                    throw new UnauthorizedRouteException("You don't have access to this route!");
+            }
             List<WhitelistEntry> entry = new ArrayList<>();
             JSONArray arr = (JSONArray) obj.get("whitelists");
             if(arr.isEmpty()){
                 return null;
             }
-            arr.forEach(a ->{
-                entry.add(new WhitelistEntry((JSONObject) a));
-            });
+            arr.forEach(a -> entry.add(new WhitelistEntry((JSONObject) a)));
             return entry;
-        }catch (IOException e){
+        }catch (IOException ignored){
         }
         return null;
     }
@@ -165,9 +185,17 @@ public class RavyAPI{
         JSONObject obj ;
         try {
             res = c.newCall(r).execute();
+            assert res.body() != null;
             obj = new JSONObject(res.body().string());
-            return new Trust((JSONObject) obj.get("trust"));
-        }catch (IOException e){
+            switch(res.code()){
+                case 401:
+                case 403:
+                    throw new UnauthorizedRouteException("You don't have access to this route!");
+                default:
+                    return new Trust((JSONObject) obj.get("trust"));
+            }
+
+        }catch (IOException ignored){
         }
         return null;
     }
@@ -187,9 +215,17 @@ public class RavyAPI{
         JSONObject obj ;
         try {
             res = c.newCall(r).execute();
+            assert res.body() != null;
             obj = new JSONObject(res.body().string());
-                return new ReputationEntry(obj);
-        }catch (Exception e){
+            switch(res.code()){
+                case 401:
+                case 403:
+                    throw new UnauthorizedRouteException("You don't have access to this route!");
+                default:
+                    return new ReputationEntry(obj);
+            }
+
+        }catch (Exception ignored){
         }
         return null;
     }
