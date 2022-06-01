@@ -19,7 +19,7 @@ public class ExtensiveGuildInfo {
     }
 
     public boolean isBanned(){
-        JSONArray a = ((JSONArray) obj.get("bans"));
+        JSONArray a = ( obj.getJSONArray("bans"));
         return !a.isEmpty();
     }
     public Trust getTrust(){

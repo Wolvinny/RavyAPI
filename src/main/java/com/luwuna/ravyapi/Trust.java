@@ -17,14 +17,14 @@ public class Trust {
      * @return int level
      */
     public int getLevel(){
-        return Integer.parseInt(obj.get("level").toString());
+        return obj.getInt("level");
     }
     /**
      * Returns the meaning of the number
      * @return String number
      */
     public String getLabel(){
-        return obj.get("label").toString();
+        return obj.getString("label");
     }
 
 }

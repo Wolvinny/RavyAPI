@@ -19,7 +19,7 @@ public class Token {
         return scopes;
     }
     public TokenType getType(){
-        switch (obj.get("type").toString()){
+        switch (obj.getString("type")){
             case "ravy":
                 return TokenType.RAVY;
             case "ksoft":

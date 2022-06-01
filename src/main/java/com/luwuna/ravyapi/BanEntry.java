@@ -21,15 +21,15 @@ public class BanEntry {
 
     }
     public String getReason(){
-        return (String) obj.get("reason");
+        return obj.getString("reason");
     }
     public String getReasonKey(){
-        return (String) obj.get("reasonKey");
+        return obj.getString("reasonKey");
     }
     public String getModerator(){
-        return (String) obj.get("moderator");
+        return obj.getString("moderator");
     }
     public String getProvider(){
-        return (String) obj.get("provider");
+        return obj.getString("provider");
     }
 }

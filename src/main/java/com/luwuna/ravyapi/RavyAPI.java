@@ -82,7 +82,7 @@ public class RavyAPI{
      */
     public ExtensiveUserInfo getInfo(@NotNull String id){
         r = new Request.Builder()
-                .url("https://ravy.org/api/v1/users/" + id)
+                .url("https://ravy.org/api/v1/users/" + id + "/bans")
                 .header("Authorization", token)
                 .get().build();
         Response res;

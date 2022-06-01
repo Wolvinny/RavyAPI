@@ -20,11 +20,11 @@ public class ExtensiveUserInfo {
     }
 
     public boolean isBanned(){
-       JSONArray a = ((JSONArray) obj.get("bans"));
+       JSONArray a = (obj.getJSONArray("bans"));
         return !a.isEmpty();
     }
     public Trust getTrust(){
-        return new Trust((JSONObject) obj.get("trust"));
+        return new Trust(obj.getJSONObject("trust"));
     }
 
 

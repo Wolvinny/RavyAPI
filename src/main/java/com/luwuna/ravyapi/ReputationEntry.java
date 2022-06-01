@@ -14,15 +14,15 @@ public class ReputationEntry {
 
     }
     public String getProvider(){
-        return (String) obj.get("provider");
+        return obj.getString("provider");
     }
     public double getScore(){
-        return Double.valueOf((String) obj.get("score"));
+        return obj.getDouble("score");
     }
     public int getUpvotes(){
-        return Integer.valueOf((String) obj.get("upvotes"));
+        return obj.getInt("upvotes");
     }
     public int getDownvotes(){
-        return Integer.valueOf((String) obj.get("downvotes"));
+        return obj.getInt("downvotes");
     }
 }

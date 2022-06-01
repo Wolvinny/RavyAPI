@@ -8,13 +8,13 @@ public class SentinelEntry {
         this.obj = obj;
     }
     public boolean isVerified(){
-        return (boolean) obj.get("verified");
+        return obj.getBoolean("verified");
     }
     /**
      * I honestly have no clue on why you'd need this, but i added it anyways
      * @return the debug id
      */
     public String getInternalDebugId(){
-        return (String) obj.get("id");
+        return obj.getString("id");
     }
 }
