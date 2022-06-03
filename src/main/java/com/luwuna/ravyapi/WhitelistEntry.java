@@ -1,8 +1,7 @@
 package com.luwuna.ravyapi;
 
 import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
-import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 public class WhitelistEntry {
@@ -23,6 +22,10 @@ public class WhitelistEntry {
      *
      */
     public String getReason(){
+
+
+
+
         return null;
     }
 }
