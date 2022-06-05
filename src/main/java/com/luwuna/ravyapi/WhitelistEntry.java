@@ -23,9 +23,6 @@ public class WhitelistEntry {
      */
     public String getReason(){
 
-
-
-
         return null;
     }
 }
