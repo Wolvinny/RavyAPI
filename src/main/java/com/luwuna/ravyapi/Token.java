@@ -24,6 +24,7 @@ public class Token {
                 return TokenType.RAVY;
             case "ksoft":
                 return TokenType.KSOFT;
+
         }
         return TokenType.UNKNOWN;
     }

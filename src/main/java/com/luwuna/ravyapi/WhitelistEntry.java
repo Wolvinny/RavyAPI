@@ -13,8 +13,8 @@ public class WhitelistEntry {
         }
     }
 
-    public boolean getProvider(){
-        return false;
+    public String getProvider(){
+        return obj.getString("provider");
     }
 
     /**
@@ -23,6 +23,6 @@ public class WhitelistEntry {
      */
     public String getReason(){
 
-        return null;
+        return obj.getString("reason");
     }
 }

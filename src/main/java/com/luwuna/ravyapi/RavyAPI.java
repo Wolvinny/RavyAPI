@@ -1,6 +1,7 @@
 package com.luwuna.ravyapi;
 
 import com.luwuna.ravyapi.enums.Method;
+import com.luwuna.ravyapi.exceptions.InvalidIdException;
 import com.luwuna.ravyapi.exceptions.InvalidTokenException;
 import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
 import okhttp3.*;
@@ -84,6 +85,7 @@ public class RavyAPI{
             res = c.newCall(r).execute();
             assert res.body() != null;
             obj = new JSONObject(res.body().string());
+            if (res.code()==400) throw new InvalidIdException("The id provided is not a valid user or guild-Id!");
             if(!hasAccess(res.code()))  throw new UnauthorizedRouteException("You don't have access to this route!");
             return new ExtensiveUserInfo(obj);
 
@@ -111,6 +113,7 @@ public class RavyAPI{
             res = c.newCall(r).execute();
             assert res.body() != null;
             obj = new JSONObject(res.body().string());
+            if (res.code()==400) throw new InvalidIdException("The id provided is not a valid user or guild-Id!");
             if(!hasAccess(res.code()))  throw new UnauthorizedRouteException("You don't have access to this route!");
             return obj.getString("pronouns");
 
@@ -133,6 +136,7 @@ public class RavyAPI{
             res = c.newCall(r).execute();
             assert res.body() != null;
             obj = new JSONObject(res.body().string());
+            if (res.code()==400) throw new InvalidIdException("The id provided is not a valid user or guild-Id!");
             if(!hasAccess(res.code()))  throw new UnauthorizedRouteException("You don't have access to this route!");
             return new ExtensiveGuildInfo(obj);
         }catch (IOException ignored){
@@ -221,6 +225,7 @@ public class RavyAPI{
         Request request = new Request.Builder()
                 .addHeader("Authorization", token)
                 .addHeader("Content-type:", "application/octet-stream")
+                .addHeader("multipart/form-data; boundary=", "randomstringgoeshere")
                 .url("https://ravy.org/api/v1/avatars/?threshold="+threshold + "&method=" + method.name().toLowerCase())
                 .post(file)
                 .build();
@@ -257,6 +262,7 @@ public class RavyAPI{
             res = c.newCall(r).execute();
             assert res.body() != null;
             obj = new JSONObject(res.body().string());
+            if (res.code()==400) throw new InvalidIdException("The id provided is not a valid user or guild-Id!");
             if(!hasAccess(res.code()))  throw new UnauthorizedRouteException("You don't have access to this route!");
             List<WhitelistEntry> entry = new ArrayList<>();
             JSONArray arr = (JSONArray) obj.get("whitelists");
@@ -307,6 +313,7 @@ public class RavyAPI{
             res = c.newCall(r).execute();
             assert res.body() != null;
             obj = new JSONObject(res.body().string());
+            if (res.code()==400) throw new InvalidIdException("The id provided is not a valid user or guild-Id!");
             if(!hasAccess(res.code()))  throw new UnauthorizedRouteException("You don't have access to this route!");
             return new ReputationEntry(obj);
 
@@ -314,12 +321,26 @@ public class RavyAPI{
         }
         return null;
     }
-    public boolean isSentinelVerified(@NotNull String id){
-
-        return false;
+    public SentinelEntry isSentinelVerified(@NotNull String id){
+        if(!isValid) return null;
+        r = new Request.Builder()
+                .url("https://ravy.org/api/v1/users/" + id)
+                .header("Authorization", token)
+                .get().build();
+        Response res;
+        JSONObject obj ;
+        try {
+            res = c.newCall(r).execute();
+            assert res.body() != null;
+            obj = new JSONObject(res.body().string());
+            if (res.code()==400) throw new InvalidIdException("The id provided is not a valid user or guild-Id!");
+            if(!hasAccess(res.code()))  throw new UnauthorizedRouteException("You don't have access to this route!");
+            return new SentinelEntry((JSONObject) obj.get("sentinel"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
-
-
     private boolean hasAccess(int code){
         switch(code){
             case 401:
@@ -329,4 +350,6 @@ public class RavyAPI{
                 return true;
         }
     }
+
+
 }

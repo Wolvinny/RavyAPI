@@ -3,5 +3,5 @@ package com.luwuna.ravyapi.enums;
 public enum TokenType {
     KSOFT,
     RAVY,
-    UNKNOWN
+    UNKNOWN //placeholder for possible future TokenTypes
 }
