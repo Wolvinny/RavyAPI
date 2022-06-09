@@ -6,17 +6,17 @@
 A wrapper for the Ravy API
 
 
-##Summary
+## Summary
 This api offers support for [ravy.org api](https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89/doc/the-api-AjLeh3dpsp). 
 
-##Usage
-###Constructing the API object
+## Usage
+### Constructing the API object
 ```java
 RavyAPI api = new RavyAPI("your-token-here");
 ```
 If your token is invalid, it'll throw an InvalidTokenException
 
-###Fetching user data
+### Fetching user data
 ```java
 stil workign on this :P
 ```
