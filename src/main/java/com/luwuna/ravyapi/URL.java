@@ -1,16 +1,17 @@
 package com.luwuna.ravyapi;
 
-import org.json.JSONObject;
-
 public class URL {
-    private final JSONObject obj;
-    public URL(JSONObject obj){
-        this.obj = obj;
+    private boolean isFraudulent;
+    private String message;
+
+    public URL() {
     }
-    public boolean isFraudulent(){
-        return obj.getBoolean("isFraudulent");
+
+    public boolean isFraudulent() {
+        return isFraudulent;
     }
-    public String getMessage(){
-        return obj.getString("message");
+
+    public String getMessage() {
+        return message;
     }
 }

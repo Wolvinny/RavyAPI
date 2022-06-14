@@ -1,35 +1,29 @@
 package com.luwuna.ravyapi;
 
-import com.luwuna.ravyapi.exceptions.UnauthorizedRouteException;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.luwuna.ravyapi.enums.ReasonKey;
 
 public class BanEntry {
-     private final JSONObject obj;
+    private String provider;
+    private String reasonKey;
+    private String moderator;
+    private String reason;
 
-    /**
-     *
-     * @throws NullPointerException if not banned
-     */
-    public BanEntry(JSONObject obj){
-    this.obj = obj;
-    if(obj.has("error")) {
-        throw new UnauthorizedRouteException("You dont have access to this route!");
+    public BanEntry() {
     }
 
+    public String getReason() {
+        return reason;
     }
-    public String getReason(){
-        return obj.getString("reason");
+
+    public ReasonKey getReasonKey() {
+        return ReasonKey.valueOf(reasonKey);
     }
-    public String getReasonKey(){
-        return obj.getString("reasonKey");
+
+    public String getModerator() {
+        return moderator;
     }
-    public String getModerator(){
-        return obj.getString("moderator");
-    }
-    public String getProvider(){
-        return obj.getString("provider");
+
+    public String getProvider() {
+        return provider;
     }
 }

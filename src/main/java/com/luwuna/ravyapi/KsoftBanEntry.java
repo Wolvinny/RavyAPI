@@ -1,37 +1,51 @@
 package com.luwuna.ravyapi;
 
-import org.json.JSONObject;
-
 public class KsoftBanEntry {
-    private final JSONObject obj;
-    public KsoftBanEntry(JSONObject obj){
-        this.obj = obj;
+
+    private boolean found;
+    private String id;
+    private String tag;
+    private String reason;
+    private String proof;
+    private String moderator;
+    private boolean severe;
+    private String timestamp;
+
+
+    public KsoftBanEntry() {
     }
 
 
-    public boolean isBanned(){
-        return obj.getBoolean("found");
+    public boolean isBanned() {
+        return found;
     }
-    public String getId(){
-        return obj.getString("id");
+
+    public String getId() {
+        return id;
     }
-    public String getTag(){
-        return obj.getString("tag");
+
+    public String getTag() {
+        return tag;
     }
-    public String getReason(){
-        return obj.getString("reason");
+
+    public String getReason() {
+        return reason;
     }
-    public String getProof(){
-        return obj.getString("proof");
+
+    public String getProof() {
+        return proof;
     }
-    public String getModerator(){
-        return obj.getString("moderator");
+
+    public String getModerator() {
+        return moderator;
     }
-    public boolean isSevere(){
-        return obj.getBoolean("severe");
+
+    public boolean isSevere() {
+        return severe;
     }
-    public String getTimestamp(){
-        return obj.getString("timestamp");
+
+    public String getTimestamp() {
+        return timestamp;
     }
 
 }
