@@ -46,7 +46,7 @@ public class RavyAPI {
     }
 
     /**
-     * Gets the scopes that the token has access to in a List<String>. All scopes can be found at <a href="https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89">here</a>
+     * Gets the Token. All scopes can be found at <a href="https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89">here</a>
      */
     public Token getToken() {
         if (!isValid) return null;
@@ -184,15 +184,15 @@ public class RavyAPI {
     /**
      * Checks if a url is fraudulent
      *
-     * @param url:             The url to check
+     * @param url:   The url to check
      * @param phishermanToken: Optional: a phisherman.gg token if you have one
-     * @param phisermanUserId: Optional, required if passing a phrisermanToken The id of the user the token is connected to
+     * @param phishermanUserId: Optional, required if passing a phishermanToken The id of the user the token is connected to
      * @return URL object
      */
-    public URL getUrl(String url, String phishermanToken, String phisermanUserId) {
+    public URL getUrl(String url, String phishermanToken, String phishermanUserId) {
         if (!isValid) return null;
         r = new Request.Builder()
-                .url("https://ravy.org/api/v1/?url=" + url + "&phisherman_token=" + phishermanToken + "&phiserman_user=" + phisermanUserId)
+                .url("https://ravy.org/api/v1/?url=" + url + "&phisherman_token=" + phishermanToken + "&phiserman_user=" + phishermanUserId)
                 .header("Authorization", token)
                 .get().build();
         Response res;
@@ -257,7 +257,7 @@ public class RavyAPI {
      * Gets the whitelists of a user.
      *
      * @param id: the id of the user
-     * @return List<WhiteListEntry> if the user has whitelists, null if there are none
+     * @return Whitelist
      */
     public Whitelist getWhitelists(@NotNull String id) {
         if (!isValid) return null;
