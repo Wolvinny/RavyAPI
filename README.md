@@ -47,7 +47,8 @@ BanEntry[] bans = info.getBans();
 ReputationEntry rep = info.getReputation();
 SentinelEntry sentinel = info.getSentinel();
 ```
-`user.pronouns`
+
+`user.pronouns`:
 This can be done directly via the main RavyAPI object using
 ```java
 String pronouns = api.getPronouns("userId"):
