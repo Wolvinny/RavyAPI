@@ -46,7 +46,7 @@ public class RavyAPI {
     }
 
     /**
-     * Gets the Token. All scopes can be found at <a href="https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89">here</a>
+     * Gets the Token.
      */
     public Token getToken() {
         if (!isValid) return null;

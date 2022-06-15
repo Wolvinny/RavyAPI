@@ -7,7 +7,11 @@ public class SentinelEntry {
     public SentinelEntry() {
 
     }
-
+    /**
+     * Whether the user is verified
+     *
+     * @return boolean
+     */
     public boolean isVerified() {
         return verified;
     }
@@ -15,7 +19,7 @@ public class SentinelEntry {
     /**
      * I honestly have no clue on why you'd need this, but I added it anyway
      *
-     * @return the debug id
+     * @return String
      */
     public String getInternalDebugId() {
         return id;

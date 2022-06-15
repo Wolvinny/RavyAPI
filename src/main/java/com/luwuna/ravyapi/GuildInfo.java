@@ -20,7 +20,7 @@ public class GuildInfo {
     /**
      * Checks whether the guild has bans
      *
-     * @return null if the guild is not banned, List<BanEntry> if the guild is banned
+     * @return BanEntry[] if the guild is banned
      */
     public BanEntry[] getBans() {
         return bans;

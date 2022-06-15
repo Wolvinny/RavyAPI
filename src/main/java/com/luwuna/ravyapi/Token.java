@@ -13,18 +13,34 @@ public class Token {
     public Token() {
     }
 
+    /**
+     * The userId this token belongs to
+     * @return String
+     */
     public String getUser() {
         return user;
     }
 
+    /**
+     * The application id this token belongs to
+     * @return String
+     */
     public String getApplication() {
         return application;
     }
 
+    /**
+     * Get the scopes the token has access to. All scopes can be found <a href="https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89">here</a>
+     * @return String[]
+     */
     public String[] getScopes() {
         return access;
     }
 
+    /**
+     * Get the TokenType
+     * @return TokenType
+     */
     public TokenType getType() {
         return TokenType.valueOf(type.toUpperCase());
     }

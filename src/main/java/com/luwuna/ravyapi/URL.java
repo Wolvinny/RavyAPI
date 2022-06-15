@@ -7,11 +7,19 @@ public class URL {
     public URL() {
     }
 
+    /**
+     * Whether this url is fraudulent
+     * @return boolean
+     */
     public boolean isFraudulent() {
         return isFraudulent;
     }
 
-    public String getMessage() {
+    /**
+     * Gets the reason why this url is fraudulent
+     * @return String
+     */
+    public String getReason() {
         return message;
     }
 }

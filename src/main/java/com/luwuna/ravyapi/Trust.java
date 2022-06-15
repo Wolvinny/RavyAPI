@@ -8,14 +8,16 @@ public class Trust {
 
     }
 
-
+    /**
+     * Gets the trust level
+     * @return int (0-6)
+     */
     public int getLevel() {
         return level;
     }
 
     /**
      * Returns the meaning of the number
-     *
      * @return String number
      */
     public String getLabel() {

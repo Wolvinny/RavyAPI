@@ -18,9 +18,9 @@ public class Avatar {
     }
 
     /**
-     * Whether the avatar is matched to a fraudulent avatar
+     * Which avatar the avatar matched to
      *
-     * @return true if matched
+     * @return String
      */
     public String getKey() {
         return key;
