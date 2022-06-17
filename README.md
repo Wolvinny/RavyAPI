@@ -113,6 +113,39 @@ boolean isVerified = sen.isVerified()
 ```
 This is a small class, but kept for maybe future expansion. You'll notice there is an `.getInternalDebugId()` but i have no clue why you'd ever need that
 
+## Whitelist and WhitelistEntry (`users.whitelists`)
+### This is to check whether the user is whitelisted 
+
+```java
+Whitelist white = api.getWhitelists("userid");
+boolean isWhitelisted = white.isWhitelisted(); //! always check before retrieving, else an error might occur
+WhitelistEntry[] entryarr = white.getWhitelists();
+WhitelistEntry entry = entryarr[0];
+String provider = entry.getProvider();
+String reason = entry.getReason(); //Usually 'STAFF'
+
+Trust trust = white.getTrust(); //trust based on whitelistentries
+``` 
+
+## URLS (`urls` or `urls.cached`)
+### The api also offers fraudulent url checking
+Params (* = optional) :
+`url`: the url too lookup
+`*phishermanToken`: A phisherman.gg token, if you have one
+`*phishermanUserId`: the id this token belongs to
+```java
+URL url = api.getUrl(url, *token, *userId);
+boolean isFraudulent = url.isFraudulent(); //whether this url is fraudulent
+String reason = url.getReason(); //the reason why the url is fraudulent
+```
+
+## Avatar (`avatars`)
+### Avatars can also be checked whether they are fraudulent or not. This can be done in two ways: 
+Params:
+`avatar`: The avatar. This has to be a cdn.discordapp.com url or a file
+`threshold`: How similar the avatar needs to be to match (0-1, default 0.97)
+`method`: The method to use: Method.SSIM, Method.PHASH, Method.DEFAULT. Only change this of you know what you are doing. Method.PHASH and Method.DEFAULT are the same, but has been names as default aswell to make it
+
 
 
 
