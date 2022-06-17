@@ -130,7 +130,7 @@ Trust trust = white.getTrust(); //trust based on whitelistentries
 ## URLS (`urls` or `urls.cached`)
 ### The api also offers fraudulent url checking
 Params (* = optional) :<br/>
-`url`: the url too lookup<br/>
+`url`: the url to lookup<br/>
 `*phishermanToken`: A phisherman.gg token, if you have one<br/>
 `*phishermanUserId`: the id this token belongs to<br/>
 ```java
