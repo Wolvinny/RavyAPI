@@ -77,8 +77,8 @@ boolean whitelist = info.isWhitelisted() //! always check before retrieving whit
 WhitelistEntry[] entry = info.getWhitelists();
 Trust trust = info.getTrust(); //the trust based on the whitelists
 ```
-## Fetching info about a guild.
-### Checks whether the guild is banned. Requires the `guilds` scope
+## Fetching info about a guild (`guilds`)
+### Checks whether the guild is banned. 
 ```java
 GuildInfo info = api.getGuildInfo("guildId");
 boolean isBanned() = info.isBanned(); //! always check before retrieving bans, else an error might occur
@@ -97,16 +97,16 @@ String provider = ban.getProvider(); //the name of the provider
 ReasonKey key = ban.getReasonKey(); //a short version of the Reason, returned as a single ReasonKey enum object;
 ```
 
-## Fetching Ksoft bans
-### For thos who still have a ksoft token, you can retirieve bans the following way. Note that the `user` scope also includes ksoft bans.
+## Fetching Ksoft bans (`ksoft.bans`)
+### For thos who still have a ksoft token, you can retirieve bans the following way. Note that the `user` scope also includes ksoft bans, but not the other way round.
 ```java
 KsoftBanEntry ban = api.getKsoftBans("userId");
 boolean banned = ban.isBanned(); //!!Make sure to check as if the user isn't banned all of the following fields are null;
 //not gonna list all classes, pretty self-explanatory.
 ```
 
-## SentinelEntry
-### Whether the user is verified on the Sentinel platform or not (requires `user.*`)
+## SentinelEntry (`users`)
+### Whether the user is verified on the Sentinel platform or not
 ```java
 SentinelEntry sen = api.getFullUserInfo().getSentinel()
 boolean isVerified = sen.isVerified()
