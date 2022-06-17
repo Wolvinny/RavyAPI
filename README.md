@@ -144,7 +144,22 @@ String reason = url.getReason(); //the reason why the url is fraudulent
 Params:
 `avatar`: The avatar. This has to be a cdn.discordapp.com url or a file
 `threshold`: How similar the avatar needs to be to match (0-1, default 0.97)
-`method`: The method to use: Method.SSIM, Method.PHASH, Method.DEFAULT. Only change this of you know what you are doing. Method.PHASH and Method.DEFAULT are the same, but has been names as default aswell to make it
+`method`: The method to use: Method.SSIM, Method.PHASH, Method.DEFAULT. Only change this of you know what you are doing. Method.PHASH and Method.DEFAULT are the same, but has been names as default aswell to make it easier
+```java
+Avatar av = api.getAvatar(avatar, threshold, method);
+boolean isMatched = av.isMatched();
+String key = av.getKey(); //wich avatar is matched, eg modmail-blurple
+Double similarity = av.getSimilarity(); //how similar the avatar is (0.00-1.00)
+```
+
+## Trust
+### You'll see this one in a lot of classes. This differs for every class. The trust is based on the class, eg if you'd get the trust inside the BanEntry class, it'd return a trust based on the bans. So lets say the user is banned, the trust level would be '1', but if we were to retreive the 'ReputationEntry' trust object, it'd just return the default level, which is 3 (assuming the user isnt found on drep)
+
+```java
+Trust trust = <class>.getTrust(); //depends on which class you use
+int level = trust.getLevel(); //returns a level from (0-6), 3 being default
+String label = trust.getLabel(); //the label that belongs to the level
+```
 
 
 
