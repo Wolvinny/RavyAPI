@@ -129,10 +129,10 @@ Trust trust = white.getTrust(); //trust based on whitelistentries
 
 ## URLS (`urls` or `urls.cached`)
 ### The api also offers fraudulent url checking
-Params (* = optional) :
-`url`: the url too lookup
-`*phishermanToken`: A phisherman.gg token, if you have one
-`*phishermanUserId`: the id this token belongs to
+Params (* = optional) :<br/>
+`url`: the url too lookup<br/>
+`*phishermanToken`: A phisherman.gg token, if you have one<br/>
+`*phishermanUserId`: the id this token belongs to<br/>
 ```java
 URL url = api.getUrl(url, *token, *userId);
 boolean isFraudulent = url.isFraudulent(); //whether this url is fraudulent
@@ -141,9 +141,9 @@ String reason = url.getReason(); //the reason why the url is fraudulent
 
 ## Avatar (`avatars`)
 ### Avatars can also be checked whether they are fraudulent or not. This can be done in two ways: 
-Params:
-`avatar`: The avatar. This has to be a cdn.discordapp.com url or a file
-`threshold`: How similar the avatar needs to be to match (0-1, default 0.97)
+Params:<br/>
+`avatar`: The avatar. This has to be a cdn.discordapp.com url or a file<br/>
+`threshold`: How similar the avatar needs to be to match (0-1, default 0.97)<br/>
 `method`: The method to use: Method.SSIM, Method.PHASH, Method.DEFAULT. Only change this of you know what you are doing. Method.PHASH and Method.DEFAULT are the same, but has been names as default aswell to make it easier
 ```java
 Avatar av = api.getAvatar(avatar, threshold, method);
