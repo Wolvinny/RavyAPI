@@ -1,11 +1,11 @@
 [discord-invite]: https://discord.gg/d6sGxdfFk9
 [aero-icon]: https://cdn.discordapp.com/emojis/941839556406292500.webp?size=44&quality=lossless
 
-[ ![aero-icon][] ][discord-invite] The official aero discord!
+[ ![aero-icon][] ][discord-invite] **The official Aero Discord!**
 # RavyAPI
-## A wrapper for the Ravy API, made by me (Wolvinny/Luna). This is my first ever api wrapper so this was a learning experience for me. 
+## A wrapper for the Ravy API, made by me (Wolvinny/Luna, treble_#0001). This is my first ever api wrapper so this was a learning experience for me. 
 ### Please note that bugs might occur. All suggestions are welcome.
-
+### For any issues, both related to this api or the api in general, feel free to join the discord. 
 
 ## Summary
 This api offers support for <a href=https://docs.ravy.org/share/5bc92059-64ef-4d6d-816e-144b78e97d89/doc/the-api-AjLeh3dpsp>the ravy.org api</a>.
@@ -114,7 +114,7 @@ boolean isVerified = sen.isVerified()
 This is a small class, but kept for maybe future expansion. You'll notice there is an `.getInternalDebugId()` but i have no clue why you'd ever need that
 
 ## Whitelist and WhitelistEntry (`users.whitelists`)
-### This is to check whether the user is whitelisted 
+### This is to check whether the user is whitelisted.
 
 ```java
 Whitelist white = api.getWhitelists("userid");
@@ -160,7 +160,6 @@ Trust trust = <class>.getTrust(); //depends on which class you use
 int level = trust.getLevel(); //returns a level from (0-6), 3 being default
 String label = trust.getLabel(); //the label that belongs to the level
 ```
-
 
 
 
